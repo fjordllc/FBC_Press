@@ -31,6 +31,9 @@
 既刊の共通文言:
 
 - `本書は FjordBootCamp（フィヨルドブートキャンプ） の教材です。`
+- **「FjordBootCamp（フィヨルドブートキャンプ）」は `https://bootcamp.fjord.jp/` へのリンクにする**(プレーンテキストにしない)。
+
+**実装・見た目は既刊と一字一句そろえる。** 文言だけ合わせて要素(`<footer>`)・リンク・CSS が違うと、フッターがシリーズから外れる。標準の JS / CSS とルールは `THEME_CUSTOMIZATION.md` を参照(装飾は JS にインラインで書かず、書籍固有 CSS の `.textbook-footer` に置く)。
 
 役割は次のとおり。
 
