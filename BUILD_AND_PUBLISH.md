@@ -22,9 +22,12 @@
 
 ### 1. セットアップ
 
-- 必要ツール名
+- 必要ツール名(mdBook など)
 - 必要バージョン
 - インストール方法
+- 共有テーマ [mdbook-book-jp](https://github.com/machida/mdbook-book-jp) の導入。
+  新規書籍では最初に `bin/install.sh` でテーマを入れ、`book.toml` の
+  `additional-css` を設定する(手順は `THEME_CUSTOMIZATION.md`)
 
 ### 2. ローカル確認
 

@@ -68,7 +68,7 @@ FjordBootCamp の紹介文、掲載位置、各ページ共通フッターの扱
 0. 執筆者には `WRITING_PROMPT.md` を最初に渡す(以降の手順を1枚にまとめてある)
 1. `STYLE_GUIDE.md`、**特に第0節「良い章と悪い章の違い」** を読む。`SAMPLE_CHAPTER.md`(密度のゴールドスタンダード)も先に読む
 2. `BOOK_OUTLINE_TEMPLATE.md` で **章ごとの議論(主張・具体例・誤解)を OUTLINE に書き起こす**。ここを飛ばすと章が薄くなる
-3. その書籍リポジトリ側に `STYLEGUIDE.md` を作り、バージョン前提・用語統一表・基準 URL を具体的に固める(既刊 Hotwire / Tailwind が手本)
+3. その書籍リポジトリ側に `STYLEGUIDE.md` を作り、バージョン前提・用語統一表・基準 URL を具体的に固める(既刊 Hotwire / Tailwind が手本)。あわせて共有テーマ [mdbook-book-jp](https://github.com/machida/mdbook-book-jp) を `bin/install.sh` で導入する(`THEME_CUSTOMIZATION.md`)
 4. `TERMS.md` に、その書籍で必要な用語統一を追加する
 5. `CHAPTER_TEMPLATE.md` の「章を書く前に答えること」に答えてから本文を書く(テンプレートの穴埋めをしない)
 6. 原稿を書いたら `REVIEW_CHECKLIST.md`、**まず「密度・固有性チェック」** で自己点検する

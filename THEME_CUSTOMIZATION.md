@@ -10,13 +10,50 @@
 - 書籍固有 CSS と共通 CSS の役割を分ける
 - JavaScript は最小限に留める
 
+## テーマの導入(mdbook-book-jp)
+
+`mdbook-book-core.css` と `mdbook-book-jp.css` は、共有テーマ **[mdbook-book-jp](https://github.com/machida/mdbook-book-jp)** から導入します。日本語書籍向けのタイポグラフィとレイアウトを揃えるための共通 CSS で、FBC Press の全書籍がこれを土台にします。
+
+**新しい書籍を作ったら、まずこのテーマを導入してください。** 既刊(`tailwind-css-textbook-ja` / `hotwire-textbook-ja`)はこれを入れて見た目を統一していますが、テーマ未導入のまま書き始めると、シリーズで見た目が揃わなくなります。
+
+### 初回導入
+
+```bash
+# テーマを一度どこかに clone しておく
+git clone https://github.com/machida/mdbook-book-jp.git ~/dev/mdbook-book-jp
+
+# 対象の書籍ディレクトリに導入する
+bash ~/dev/mdbook-book-jp/bin/install.sh ~/dev/your-textbook-ja
+```
+
+`install.sh` は次を行います。
+
+- `theme/mdbook-book-core.css` と `theme/mdbook-book-jp.css` を対象リポジトリにコピーする
+- `book.toml` に `language = "ja"` と `additional-css = ["theme/mdbook-book-jp.css"]` を追加する
+
+導入後、書籍固有 CSS とフッター JS を `additional-css` / `additional-js` に足します(下記「`book.toml` での読み込み」を参照)。
+
+### 更新
+
+テーマ側が改善されたら、各書籍で再適用します。
+
+```bash
+bash ~/dev/mdbook-book-jp/bin/update.sh ~/dev/your-textbook-ja
+```
+
+### 編集してはいけないもの
+
+- `mdbook-book-core.css` と `mdbook-book-jp.css` は **テーマからのコピー** です。直接編集しない(更新時に上書きされます)。
+- テーマ本体への改善は [mdbook-book-jp](https://github.com/machida/mdbook-book-jp) 側で行う。
+- その書籍だけの見た目調整は、必ず **書籍固有 CSS**(`[book-specific].css`)に書く。
+
 ## 推奨構成
 
 ```text
 theme/
 ├── README.md
-├── mdbook-book-core.css
-├── mdbook-book-jp.css
+├── mdbook-book-core.css   # mdbook-book-jp から導入(直接編集しない)
+├── mdbook-book-jp.css     # mdbook-book-jp から導入(直接編集しない)
 ├── [book-specific].css
 └── textbook-footer.js
 ```
