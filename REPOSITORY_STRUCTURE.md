@@ -40,6 +40,7 @@
 - 書名部分に半角英数字と日本語が混じるときは、**和欧間スペース**を入れる(`HTMLの` ではなく `HTML の`。`STYLE_GUIDE.md` 1.1 に準拠)。
 - **`authors` はシリーズで統一する**(既刊は `["FjordBootCamp"]`)。書籍ごとに表記を変えない。
 - `language = "ja"` を入れる(日本語テーマの前提)。
+- リポジトリ直下に **`LICENSE` を置き、シリーズで統一する**(既刊は MIT License、`Copyright (c) <年> FjordBootCamp`)。第三者画像を入れる場合はそのライセンスとの整合も確認する(`ASSET_RULES.md`)。
 
 ## 推奨構成
 
