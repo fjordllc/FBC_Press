@@ -55,9 +55,66 @@
 - 内部リンク切れがない
 - モバイル表示に致命的崩れがない
 
+## Cloudflare Pages への公開(mdBook・Git 連携)
+
+mdBook 本を Cloudflare Pages に載せ、`main` への push で自動ビルド・自動公開する構成。実績のあるレシピとしてそのまま流用してよい。
+
+### 勘所
+
+- **Cloudflare のビルド環境には mdBook が入っていない**。そのため、バージョンを固定した公式リリースバイナリを取得してから `mdbook build` するビルドスクリプトをリポジトリに置き、ダッシュボードのビルドコマンドはそれ一本に絞る。`cargo install mdbook` はビルドのたびに数分かかるので避け、プリビルドバイナリの取得(数秒)にする。
+- **バージョンはローカルと固定一致させる**。ローカルの mdBook を上げたらスクリプトの `MDBOOK_VERSION` も合わせて更新する。CI とローカルで出力が食い違う事故を防ぐ。
+- **出力ディレクトリは `book.toml` の `build-dir` と一致させる**(既定は `book`)。`book/` は `.gitignore` に入れ、リポジトリには含めない(ビルドのたびに生成する)。
+- **共有テーマは submodule ではなくファイル実体で同梱する**。`additional-css` / `additional-js` が相対パスで解決でき、CI 側で追加取得が要らない状態にしておく。
+
+### ビルドスクリプト(`scripts/cloudflare-build.sh`)
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ローカルで確認しているバージョンに固定する。
+MDBOOK_VERSION="${MDBOOK_VERSION:-0.4.52}"
+
+ARCHIVE="mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+URL="https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/${ARCHIVE}"
+
+echo "==> Downloading mdBook v${MDBOOK_VERSION}"
+curl -fsSL "${URL}" -o "${ARCHIVE}"   # -f: HTTP エラーで失敗させる
+tar -xzf "${ARCHIVE}"
+
+echo "==> Building book"
+./mdbook build
+```
+
+### ダッシュボード設定(初回のみ)
+
+Git 連携プロジェクトの作成は Cloudflare ダッシュボードで行う(**wrangler CLI では Git 連携プロジェクトを作れない**。手作業になる位置はここ)。
+
+Workers & Pages → Create → Pages → Connect to Git → リポジトリを選択 → 次を入力:
+
+| 項目 | 値 |
+|---|---|
+| Production branch | `main` |
+| Framework preset | `None` |
+| Build command | `bash scripts/cloudflare-build.sh` |
+| Build output directory | `book` |
+
+Save and Deploy で初回ビルドが走り、`https://<project>.pages.dev` で公開される。以降は `main` に push すれば自動でビルド・公開される。
+
+### 状態確認(任意・wrangler CLI)
+
+Git 連携そのものに wrangler login は不要だが、デプロイ状況を CLI で見たいときは使える。
+
+```sh
+npx wrangler login
+npx wrangler pages deployment list --project-name <project>
+```
+
 ## 避けること
 
 - README に断片的にだけ書いて、本手順が存在しない状態
 - ローカルではできないが CI だけで通す運用
 - 誰かのローカル環境依存の手順
 - 公開後確認をしないまま完了扱いにする
+- Cloudflare のビルドで `cargo install mdbook` に頼る(毎回数分かかる。プリビルドバイナリを取得する)
+- ビルドスクリプトの mdBook バージョンをローカルと食い違わせたまま放置する
