@@ -31,6 +31,20 @@
 - どちらを採用するかは企画時に決め、同じ本の関連リポジトリで揺らさない
 - 将来的に英語版を作るなら、`-ja` に対して `-en` のように言語コードで対応できる形を保つ
 
+## シリーズの書籍リポジトリ
+
+現時点で稼働している FBC Press の書籍リポジトリ。いずれも `/Users/machida/dev/` 直下に置く。新しい本を起こしたら、この表に 1 行足す。
+
+| リポジトリ | 書名（`book.toml` の title） | 図版の所在 | 生成スクリプト |
+| --- | --- | --- | --- |
+| `why-programmers-think-textbook-ja` | FBC Press: プログラマーはなぜそう考えるのか | `manuscript/assets/` | `scripts/figures/build_all.py`（集約済み・基準実装） |
+| `hotwire-textbook-ja` | FBC Press: Hotwire | `manuscript/figures/` | 未集約（`ASSET_RULES.md` に沿って集約予定） |
+| `tailwind-css-textbook-ja` | FBC Press: Tailwind CSS | `manuscript/figures/` | 未集約（同上） |
+| `html-trivia-book-ja` | FBC Press: なぜ HTML はこうなったのか | `manuscript/figures/` | 未集約（同上） |
+
+- 図版の所在（`assets/` か `figures/`）は本によって揺れているが、**新規・改修時は `manuscript/assets/` に寄せ、生成スクリプトを 1 本に集約する**（`ASSET_RULES.md`「生成元の管理」）。基準実装は `why-programmers-think-textbook-ja/scripts/figures/build_all.py`。
+- リポジトリを追加・改称したら、この表と本文の「既存例」を合わせて更新する。
+
 ## book.toml のメタデータ規則
 
 `book.toml` の表示タイトルと著者は、シリーズで揃える(mdBook のヘッダやタブに出るため、揺れると別シリーズに見える)。
