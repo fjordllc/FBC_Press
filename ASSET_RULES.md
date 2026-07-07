@@ -41,6 +41,8 @@
 - **自作 SVG を多数作る本では、生成スクリプトを 1 本に集約する**(例: `scripts/figures/build_all.py`)。図ごとにばらばらの手順を残さず、1 スクリプトで全図を再生成できる状態にする。配色・字形・余白などの共通スタイルは定数にまとめ、後から絵柄を一括で変えられるようにしておく。
 - 集約スクリプトの基準実装は `why-programmers-think-textbook-ja/scripts/figures/build_all.py`。新しい本の図版もこれに倣い、共通のパレット定数（`FIGURE_GUIDE.md` の固定パレット）とヘルパー関数（`head` / `rect` / `txt` / `ln` / `circ` / `poly` / `save`）を使い回す。座標や色を各図に直書きしない。
 - 静的な SVG を手で持っている本を改修するときは、まず全図をこの集約スクリプトに移し、`figures/` の手書き SVG は再生成物（`assets/`）に置き換える。1 コマンドで全図を再生成できる状態を必ず残す。
+- **図が多く、手描き SVG の作図を活かしたい本は、正規化方式を採ってよい。** 元の作図を `scripts/figures/src/` に置き（これが作図のソース）、集約スクリプトがそれを入力に、配色を固定パレットへ写像・フォントを `sans-serif` へ統一・焼き込みタイトルを除去・`aria-label` へ一本化して `manuscript/assets/` に出力する。骨格（座標・レイアウト）は元図を尊重し、見た目の規約だけを揃える。基準実装は `hotwire-textbook-ja/scripts/figures/build_all.py`。
+  - どちらの方式でも、出力先は `manuscript/assets/`、入口は `scripts/figures/build_all.py` の 1 本、という構成は揃える。1 コマンドで全図を再生成できることを保つ。
 
 ## 非推奨
 
