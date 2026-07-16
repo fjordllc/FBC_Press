@@ -38,6 +38,7 @@
 | リポジトリ | 書名（`book.toml` の title） | 図版の所在 | 生成スクリプト |
 | --- | --- | --- | --- |
 | `why-programmers-think-textbook-ja` | FBC Press: プログラマーはなぜそう考えるのか | `manuscript/assets/` | `scripts/figures/build_all.py`（集約済み・基準実装） |
+| `sinatra-textbook-ja` | FBC Press: Sinatra 教科書 | `manuscript/assets/` | `scripts/figures/build_all.py` |
 | `hotwire-textbook-ja` | FBC Press: Hotwire | `manuscript/figures/` | 未集約（`ASSET_RULES.md` に沿って集約予定） |
 | `tailwind-css-textbook-ja` | FBC Press: Tailwind CSS | `manuscript/figures/` | 未集約（同上） |
 | `html-trivia-book-ja` | FBC Press: なぜ HTML はこうなったのか | `manuscript/figures/` | 未集約（同上） |
